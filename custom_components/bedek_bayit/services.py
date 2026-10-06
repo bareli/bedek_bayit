@@ -5,7 +5,7 @@ from typing import Any
 
 import voluptuous as vol
 from homeassistant.core import HomeAssistant, ServiceCall, ServiceResponse, SupportsResponse, callback
-from homeassistant.exceptions import ServiceValidationError
+from homeassistant.exceptions import ServiceValidationError, Unauthorized
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers import entity_registry as er
 
@@ -66,6 +66,19 @@ def _task_id(hass: HomeAssistant, runtime: BedekRuntime, data: dict[str, Any]) -
     raise ServiceValidationError(f"{entity_id} is not a Bedek Bayit task entity")
 
 
+async def _require_admin(hass: HomeAssistant, call: ServiceCall) -> None:
+    """Adding / removing tasks is admin configuration, as in the WebSocket API.
+
+    A call without a user (automation, script, the system) is allowed.
+    """
+    user_id = call.context.user_id
+    if not user_id:
+        return
+    user = await hass.auth.async_get_user(user_id)
+    if user is None or not user.is_admin:
+        raise Unauthorized(context=call.context)
+
+
 def _errors(err: ValidationError) -> ServiceValidationError:
     return ServiceValidationError(f"Invalid: {err}")
 
@@ -87,10 +100,12 @@ def async_register_services(hass: HomeAssistant) -> None:
         await runtime.async_snooze(_task_id(hass, runtime, call.data), call.data.get("days"))
 
     async def remove(call: ServiceCall) -> None:
+        await _require_admin(hass, call)
         runtime = _runtime(hass)
         await runtime.async_remove_task(_task_id(hass, runtime, call.data))
 
     async def add(call: ServiceCall) -> ServiceResponse:
+        await _require_admin(hass, call)
         runtime = _runtime(hass)
         d = call.data
         kind = d["schedule_type"]

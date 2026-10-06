@@ -377,3 +377,26 @@ async def test_catch_up_after_restart(hass: HomeAssistant, freezer: FrozenDateTi
     assert await hass.config_entries.async_reload(entry.entry_id)
     await hass.async_block_till_done()
     assert len(calls) == 1
+
+
+@pytest.mark.freeze_time(NOW)
+async def test_services_admin_only_for_add_remove(hass: HomeAssistant, hass_read_only_user, hass_admin_user):
+    from homeassistant.core import Context
+    from homeassistant.exceptions import Unauthorized
+
+    runtime = await setup_entry(hass, make_entry(hass))
+    task_id = await add(hass)  # no user (automation): allowed
+    user = Context(user_id=hass_read_only_user.id)
+    with pytest.raises(Unauthorized):
+        await hass.services.async_call(DOMAIN, "remove_task", {"task_id": task_id}, blocking=True, context=user)
+    with pytest.raises(Unauthorized):
+        await hass.services.async_call(
+            DOMAIN, "add_task", {"name": "x", "every": 1}, blocking=True, context=user, return_response=True
+        )
+    # household members may still mark done and snooze
+    await hass.services.async_call(DOMAIN, "complete_task", {"task_id": task_id}, blocking=True, context=user)
+    await hass.services.async_call(DOMAIN, "snooze_task", {"task_id": task_id}, blocking=True, context=user)
+    await hass.services.async_call(
+        DOMAIN, "remove_task", {"task_id": task_id}, blocking=True, context=Context(user_id=hass_admin_user.id)
+    )
+    assert runtime.store.tasks == {}
