@@ -87,7 +87,7 @@ async def _async_register_panel(hass: HomeAssistant, entry: ConfigEntry) -> None
         frontend_url_path=PANEL_URL_PATH,
         module_url=f"{STATIC_URL}/panel.js?v={await _integration_version(hass)}",
         sidebar_title=panel_title(hass, entry),
-        sidebar_icon="mdi:home-wrench",
+        sidebar_icon="mdi:hammer-wrench",
         require_admin=False,
         config={},
     )

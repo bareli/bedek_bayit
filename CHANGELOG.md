@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1 (2026-10-06)
+
+- Sidebar icon was blank (`mdi:home-wrench` does not exist); now `mdi:hammer-wrench`. A test checks every icon name against the frontend's icon list.
+- `add_task` / `remove_task` services are admin only, like the editor (automations still allowed).
+
 ## 0.1.0 (2026-10-06)
 
 First release.

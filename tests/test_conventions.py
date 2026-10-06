@@ -41,7 +41,7 @@ def test_frontend_hygiene():
         assert not re.search(r"\bconsole\.", text), path.name
         assert "innerHTML" not in text, path.name
         # bidi isolates only as escapes, never literal invisible characters
-        assert not re.search("[⁦-⁩‎‏]", text), path.name
+        assert not re.search("[\u2066-\u2069\u200e\u200f]", text), path.name
 
 
 def test_versions_and_min_ha():
@@ -49,3 +49,18 @@ def test_versions_and_min_ha():
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     assert f"## {manifest['version']}" in changelog
     assert json.loads((ROOT / "hacs.json").read_text(encoding="utf-8"))["homeassistant"]
+
+
+def test_icons_exist():
+    """Every mdi icon we reference exists in the installed frontend (an unknown name renders blank)."""
+    import pytest
+
+    hass_frontend = pytest.importorskip("hass_frontend")
+    icon_list = Path(hass_frontend.__file__).parent / "static" / "mdi" / "iconList.json"
+    names = {i["name"] if isinstance(i, dict) else i for i in json.loads(icon_list.read_text(encoding="utf-8"))}
+    used = set()
+    for path in [*COMP.glob("*.py"), *(COMP / "www").glob("*.js")]:
+        used |= set(re.findall(r"mdi:([a-z0-9-]+)", path.read_text(encoding="utf-8")))
+    used.discard("wrench")  # placeholder text in the icon input, not rendered as an icon
+    missing = sorted(used - names)
+    assert not missing, missing
