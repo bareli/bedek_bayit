@@ -1,0 +1,271 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "בדק בית",
+        "description": "מעקב תחזוקת הבית. בחרו משימות להתחלה (אפשר להוסיף, לערוך ולמחוק בהמשך בדף בדק בית בסרגל הצד). התדירויות הן המלצות נפוצות; כדאי לבדוק בחוברות ההוראות.",
+        "data": {
+          "templates": "משימות להתחלה"
+        }
+      }
+    },
+    "error": {
+      "invalid_days": "מספר שלם של ימים, 0 עד 365 (דחייה: 1 עד 365).",
+      "invalid_time": "יש להזין בפורמט HH:MM.",
+      "invalid_target": "כל יעד חייב להיות שירות notify, למשל notify.mobile_app_phone.",
+      "invalid": "ערך לא תקין."
+    },
+    "abort": {
+      "single_instance_allowed": "בדק בית כבר מוגדר."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "תזכורות",
+        "data": {
+          "notify_targets": "לשלוח תזכורות אל",
+          "reminder_time": "שעת התזכורת",
+          "remind_days": "להתחיל להזכיר, ימים לפני המועד",
+          "repeat_days": "לחזור על תזכורת באיחור כל (ימים, 0 = פעם אחת)",
+          "snooze_days": "משך דחייה (ימים)",
+          "quiet_on_shabbat": "בלי תזכורות בשבת ובחג",
+          "diaspora": "חוץ לארץ (יום טוב שני)",
+          "language": "שפת ההתראות ושמות המשימות"
+        },
+        "data_description": {
+          "notify_targets": "למשל הטלפון שלך. כשמדובר במשימה אחת, בטלפון יופיעו הכפתורים בוצע / דחייה. אוטומציות יכולות להשתמש גם באירוע bedek_bayit_reminder.",
+          "remind_days": "אפשר לשנות לכל משימה בנפרד.",
+          "quiet_on_shabbat": "תזכורת שחלה בשבת או בחג תישלח ביום החול הבא."
+        }
+      }
+    },
+    "error": {
+      "invalid_days": "מספר שלם של ימים, 0 עד 365 (דחייה: 1 עד 365).",
+      "invalid_time": "יש להזין בפורמט HH:MM.",
+      "invalid_target": "כל יעד חייב להיות שירות notify, למשל notify.mobile_app_phone.",
+      "invalid": "ערך לא תקין."
+    }
+  },
+  "selector": {
+    "language": {
+      "options": {
+        "auto": "שפת Home Assistant",
+        "he": "עברית",
+        "en": "אנגלית"
+      }
+    },
+    "category": {
+      "options": {
+        "climate": "מיזוג אוויר",
+        "water": "מים",
+        "solar": "דוד שמש",
+        "safety": "בטיחות",
+        "gas": "גז",
+        "kitchen": "מטבח וכביסה",
+        "structure": "מבנה וגג",
+        "religious": "יהדות",
+        "general": "כללי"
+      }
+    },
+    "schedule_type": {
+      "options": {
+        "interval": "כל X ימים / שבועות / חודשים / שנים",
+        "holiday": "שנתי, סביב חג",
+        "yearly": "שנתי, בתאריך",
+        "entity": "לפי חיישן (למשל תמי4)"
+      }
+    },
+    "unit": {
+      "options": {
+        "days": "ימים",
+        "weeks": "שבועות",
+        "months": "חודשים",
+        "years": "שנים"
+      }
+    },
+    "holiday": {
+      "options": {
+        "rosh_hashana": "ראש השנה",
+        "sukkot": "סוכות",
+        "hanukkah": "חנוכה",
+        "purim": "פורים",
+        "pesach": "פסח",
+        "shavuot": "שבועות"
+      }
+    },
+    "templates": {
+      "options": {
+        "ac_filter": "ניקוי פילטר מזגן",
+        "ac_service": "שירות טכנאי מזגנים לפני הקיץ",
+        "tami4_filter": "החלפת פילטר תמי4",
+        "tami4_uv": "החלפת נורת UV בתמי4",
+        "water_bar_filter": "החלפת פילטר בר מים (שטראוס / אחר)",
+        "dud_service": "טיפול בדוד שמש: אנודת מגנזיום",
+        "dud_collectors": "ניקוי אבנית בקולטים",
+        "smoke_test": "בדיקת גלאי עשן",
+        "smoke_battery": "החלפת סוללות בגלאי עשן",
+        "extinguisher": "בדיקת מטף כיבוי",
+        "mamad_filter": "בדיקת מערכת הסינון בממ\"ד",
+        "rcd_test": "בדיקת מפסק פחת",
+        "gas_hose": "החלפת צינור גז",
+        "backflow": "בדיקת מז\"ח",
+        "roof_sealing": "גג ומרזבים לפני הגשמים",
+        "chimney": "ניקוי ארובה",
+        "pest_control": "הדברה",
+        "washing_machine": "ניקוי תוף ומסנן במכונת כביסה",
+        "dishwasher_filter": "ניקוי מסנן במדיח",
+        "fridge_coils": "ניקוי סלילי מקרר ובדיקת גומיות",
+        "mezuzot": "בדיקת מזוזות"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "attention": {
+        "name": "משימות שדורשות טיפול"
+      }
+    },
+    "todo": {
+      "maintenance": {
+        "name": "תחזוקת הבית"
+      }
+    },
+    "calendar": {
+      "maintenance": {
+        "name": "תחזוקת הבית"
+      }
+    }
+  },
+  "services": {
+    "complete_task": {
+      "name": "סימון משימה כבוצעה",
+      "description": "רושם ביצוע ומעדכן את המועד הבא.",
+      "fields": {
+        "task_id": {
+          "name": "מזהה משימה",
+          "description": "מתוך list_tasks או מהמאפיין task_id של החיישן."
+        },
+        "entity_id": {
+          "name": "ישות המשימה",
+          "description": "החיישן או הכפתור של המשימה (במקום task_id)."
+        },
+        "date": {
+          "name": "תאריך",
+          "description": "ברירת מחדל: היום."
+        },
+        "note": {
+          "name": "הערה",
+          "description": ""
+        },
+        "cost": {
+          "name": "עלות (₪)",
+          "description": ""
+        }
+      }
+    },
+    "snooze_task": {
+      "name": "דחיית משימה",
+      "description": "דוחה את המועד; מתבטל כשהמשימה מבוצעת.",
+      "fields": {
+        "task_id": {
+          "name": "מזהה משימה",
+          "description": "מתוך list_tasks או מהמאפיין task_id של החיישן."
+        },
+        "entity_id": {
+          "name": "ישות המשימה",
+          "description": "החיישן או הכפתור של המשימה (במקום task_id)."
+        },
+        "days": {
+          "name": "ימים",
+          "description": "ברירת מחדל: משך הדחייה בהגדרות."
+        }
+      }
+    },
+    "remove_task": {
+      "name": "מחיקת משימה",
+      "description": "מוחק את המשימה ואת הישויות שלה.",
+      "fields": {
+        "task_id": {
+          "name": "מזהה משימה",
+          "description": "מתוך list_tasks או מהמאפיין task_id של החיישן."
+        },
+        "entity_id": {
+          "name": "ישות המשימה",
+          "description": "החיישן או הכפתור של המשימה (במקום task_id)."
+        }
+      }
+    },
+    "add_task": {
+      "name": "הוספת משימה",
+      "description": "יוצר משימת תחזוקה.",
+      "fields": {
+        "name": {
+          "name": "שם",
+          "description": ""
+        },
+        "template": {
+          "name": "תבנית",
+          "description": "מפתח תבנית אופציונלי, למשל ac_filter."
+        },
+        "category": {
+          "name": "קטגוריה",
+          "description": ""
+        },
+        "icon": {
+          "name": "סמל",
+          "description": ""
+        },
+        "schedule_type": {
+          "name": "תזמון",
+          "description": ""
+        },
+        "every": {
+          "name": "כל",
+          "description": "לתזמון חוזר."
+        },
+        "unit": {
+          "name": "יחידה",
+          "description": ""
+        },
+        "holiday": {
+          "name": "חג",
+          "description": ""
+        },
+        "month": {
+          "name": "חודש",
+          "description": "לתאריך שנתי."
+        },
+        "day": {
+          "name": "יום",
+          "description": ""
+        },
+        "offset_days": {
+          "name": "ימים מהתאריך",
+          "description": "שלילי = לפני (למשל 14- = שבועיים לפני פסח)."
+        },
+        "source_entity": {
+          "name": "חיישן מועד",
+          "description": "חיישן תאריך או זמן, למשל מועד החלפת הפילטר של תמי4."
+        },
+        "last_done": {
+          "name": "בוצע לאחרונה",
+          "description": ""
+        },
+        "remind_days": {
+          "name": "להזכיר ימים לפני",
+          "description": ""
+        },
+        "notes": {
+          "name": "הערות",
+          "description": ""
+        }
+      }
+    },
+    "list_tasks": {
+      "name": "רשימת משימות",
+      "description": "מחזיר את כל המשימות עם הסטטוס והמועד.",
+      "fields": {}
+    }
+  }
+}

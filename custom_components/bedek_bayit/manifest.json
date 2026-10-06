@@ -1,0 +1,15 @@
+{
+  "domain": "bedek_bayit",
+  "name": "Bedek Bayit",
+  "codeowners": ["@bareli"],
+  "config_flow": true,
+  "dependencies": ["frontend", "http", "lovelace", "panel_custom", "websocket_api"],
+  "documentation": "https://github.com/bareli/bedek_bayit",
+  "integration_type": "service",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/bareli/bedek_bayit/issues",
+  "loggers": ["hdate"],
+  "requirements": ["hdate[astral]>=1.1.2"],
+  "single_config_entry": true,
+  "version": "0.1.0"
+}

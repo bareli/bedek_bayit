@@ -1,0 +1,2 @@
+pytest-homeassistant-custom-component
+hdate[astral]>=1.1.2

@@ -1,0 +1,271 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Bedek Bayit",
+        "description": "Household maintenance tracker. Pick starter tasks (you can add, edit or remove tasks later in the Bedek Bayit sidebar page). Intervals are common recommendations; check your manuals.",
+        "data": {
+          "templates": "Starter tasks"
+        }
+      }
+    },
+    "error": {
+      "invalid_days": "Whole number of days, 0 to 365 (snooze: 1 to 365).",
+      "invalid_time": "Use HH:MM.",
+      "invalid_target": "Each target must be a notify service, for example notify.mobile_app_phone.",
+      "invalid": "Invalid value."
+    },
+    "abort": {
+      "single_instance_allowed": "Bedek Bayit is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Reminders",
+        "data": {
+          "notify_targets": "Send reminders to",
+          "reminder_time": "Reminder time",
+          "remind_days": "Start reminding, days before due",
+          "repeat_days": "Repeat overdue reminders every (days, 0 = once)",
+          "snooze_days": "Snooze length (days)",
+          "quiet_on_shabbat": "No reminders on Shabbat and Yom Tov",
+          "diaspora": "Diaspora (two-day Yom Tov)",
+          "language": "Language for notifications and task names"
+        },
+        "data_description": {
+          "notify_targets": "For example your phone. With one task, the phone shows Done / Snooze buttons. Automations can also use the bedek_bayit_reminder event.",
+          "remind_days": "Each task can override this.",
+          "quiet_on_shabbat": "A reminder that falls on Shabbat or Yom Tov is sent the next weekday."
+        }
+      }
+    },
+    "error": {
+      "invalid_days": "Whole number of days, 0 to 365 (snooze: 1 to 365).",
+      "invalid_time": "Use HH:MM.",
+      "invalid_target": "Each target must be a notify service, for example notify.mobile_app_phone.",
+      "invalid": "Invalid value."
+    }
+  },
+  "selector": {
+    "language": {
+      "options": {
+        "auto": "Home Assistant language",
+        "he": "Hebrew",
+        "en": "English"
+      }
+    },
+    "category": {
+      "options": {
+        "climate": "Air conditioning",
+        "water": "Water",
+        "solar": "Solar water heater",
+        "safety": "Safety",
+        "gas": "Gas",
+        "kitchen": "Kitchen and laundry",
+        "structure": "House and roof",
+        "religious": "Judaica",
+        "general": "General"
+      }
+    },
+    "schedule_type": {
+      "options": {
+        "interval": "Every N days / weeks / months / years",
+        "holiday": "Yearly, around a Jewish holiday",
+        "yearly": "Yearly, on a date",
+        "entity": "From a sensor (for example Tami4)"
+      }
+    },
+    "unit": {
+      "options": {
+        "days": "Days",
+        "weeks": "Weeks",
+        "months": "Months",
+        "years": "Years"
+      }
+    },
+    "holiday": {
+      "options": {
+        "rosh_hashana": "Rosh Hashana",
+        "sukkot": "Sukkot",
+        "hanukkah": "Hanukkah",
+        "purim": "Purim",
+        "pesach": "Pesach",
+        "shavuot": "Shavuot"
+      }
+    },
+    "templates": {
+      "options": {
+        "ac_filter": "AC filter cleaning",
+        "ac_service": "AC technician service before summer",
+        "tami4_filter": "Tami4 filter replacement",
+        "tami4_uv": "Tami4 UV lamp replacement",
+        "water_bar_filter": "Water bar filter (Strauss / other)",
+        "dud_service": "Solar heater service: magnesium anode",
+        "dud_collectors": "Solar collectors descaling",
+        "smoke_test": "Smoke detector test",
+        "smoke_battery": "Smoke detector batteries",
+        "extinguisher": "Fire extinguisher inspection",
+        "mamad_filter": "Safe room (mamad) filter check",
+        "rcd_test": "Earth leakage breaker (pachat) test",
+        "gas_hose": "Gas hose replacement",
+        "backflow": "Backflow preventer (mazach) test",
+        "roof_sealing": "Roof and gutters before the rains",
+        "chimney": "Chimney cleaning",
+        "pest_control": "Pest control",
+        "washing_machine": "Washing machine drum and filter",
+        "dishwasher_filter": "Dishwasher filter cleaning",
+        "fridge_coils": "Fridge coils and seals",
+        "mezuzot": "Mezuzot check"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "attention": {
+        "name": "Tasks needing attention"
+      }
+    },
+    "todo": {
+      "maintenance": {
+        "name": "Home maintenance"
+      }
+    },
+    "calendar": {
+      "maintenance": {
+        "name": "Home maintenance"
+      }
+    }
+  },
+  "services": {
+    "complete_task": {
+      "name": "Mark task done",
+      "description": "Records a completion and moves the next due date.",
+      "fields": {
+        "task_id": {
+          "name": "Task ID",
+          "description": "From list_tasks or a sensor's task_id attribute."
+        },
+        "entity_id": {
+          "name": "Task entity",
+          "description": "The task's sensor or button (instead of task_id)."
+        },
+        "date": {
+          "name": "Date",
+          "description": "Default: today."
+        },
+        "note": {
+          "name": "Note",
+          "description": ""
+        },
+        "cost": {
+          "name": "Cost (₪)",
+          "description": ""
+        }
+      }
+    },
+    "snooze_task": {
+      "name": "Snooze task",
+      "description": "Pushes the due date; cleared when the task is done.",
+      "fields": {
+        "task_id": {
+          "name": "Task ID",
+          "description": "From list_tasks or a sensor's task_id attribute."
+        },
+        "entity_id": {
+          "name": "Task entity",
+          "description": "The task's sensor or button (instead of task_id)."
+        },
+        "days": {
+          "name": "Days",
+          "description": "Default: the snooze length option."
+        }
+      }
+    },
+    "remove_task": {
+      "name": "Remove task",
+      "description": "Deletes the task and its entities.",
+      "fields": {
+        "task_id": {
+          "name": "Task ID",
+          "description": "From list_tasks or a sensor's task_id attribute."
+        },
+        "entity_id": {
+          "name": "Task entity",
+          "description": "The task's sensor or button (instead of task_id)."
+        }
+      }
+    },
+    "add_task": {
+      "name": "Add task",
+      "description": "Creates a maintenance task.",
+      "fields": {
+        "name": {
+          "name": "Name",
+          "description": ""
+        },
+        "template": {
+          "name": "Template",
+          "description": "Optional preset key, for example ac_filter."
+        },
+        "category": {
+          "name": "Category",
+          "description": ""
+        },
+        "icon": {
+          "name": "Icon",
+          "description": ""
+        },
+        "schedule_type": {
+          "name": "Schedule",
+          "description": ""
+        },
+        "every": {
+          "name": "Every",
+          "description": "For a recurring schedule."
+        },
+        "unit": {
+          "name": "Unit",
+          "description": ""
+        },
+        "holiday": {
+          "name": "Holiday",
+          "description": ""
+        },
+        "month": {
+          "name": "Month",
+          "description": "For a yearly date."
+        },
+        "day": {
+          "name": "Day",
+          "description": ""
+        },
+        "offset_days": {
+          "name": "Days from the date",
+          "description": "Negative = before (for example -14 = two weeks before Pesach)."
+        },
+        "source_entity": {
+          "name": "Due date sensor",
+          "description": "A date or timestamp sensor, for example Tami4 filter upcoming replacement."
+        },
+        "last_done": {
+          "name": "Last done",
+          "description": ""
+        },
+        "remind_days": {
+          "name": "Remind days before",
+          "description": ""
+        },
+        "notes": {
+          "name": "Notes",
+          "description": ""
+        }
+      }
+    },
+    "list_tasks": {
+      "name": "List tasks",
+      "description": "Returns all tasks with their status and due date.",
+      "fields": {}
+    }
+  }
+}

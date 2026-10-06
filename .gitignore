@@ -1,0 +1,17 @@
+.claude/
+CLAUDE.md
+memory/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+.env
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+.playwright-mcp/
+!qa/CLAUDE.md
