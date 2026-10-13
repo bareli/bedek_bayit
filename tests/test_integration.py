@@ -14,7 +14,7 @@ from pytest_homeassistant_custom_component.common import async_fire_time_changed
 from custom_components.bedek_bayit.config_flow import validate_options
 from custom_components.bedek_bayit.const import DOMAIN, EVENT_COMPLETED, EVENT_REMINDER
 
-from .conftest import make_entry, setup_entry
+from .conftest import make_entry, setup_deps, setup_entry
 
 NOW = "2026-10-06 10:00:00+03:00"  # Tuesday
 INTERVAL = {"type": "interval", "every": 1, "unit": "months"}
@@ -276,6 +276,7 @@ async def test_reminders_grouped_and_hebrew(hass: HomeAssistant, freezer: Frozen
 async def test_ws_api(hass: HomeAssistant, hass_ws_client, freezer: FrozenDateTimeFactory):
     freezer.move_to(NOW)
     await setup_entry(hass, make_entry(hass))
+    await setup_deps(hass)
     client = await hass_ws_client(hass)
 
     await client.send_json_auto_id({"type": f"{DOMAIN}/subscribe", "language": "he"})
@@ -329,6 +330,7 @@ async def test_ws_api(hass: HomeAssistant, hass_ws_client, freezer: FrozenDateTi
 async def test_ws_non_admin(hass: HomeAssistant, hass_ws_client, hass_read_only_access_token, freezer):
     freezer.move_to(NOW)
     runtime = await setup_entry(hass, make_entry(hass))
+    await setup_deps(hass)
     client = await hass_ws_client(hass, hass_read_only_access_token)
     task_id = (await runtime.async_save_task({"name": "x", "schedule": INTERVAL}))["id"]
     await client.send_json_auto_id({"type": f"{DOMAIN}/task/save", "task": {"name": "y", "schedule": INTERVAL}})

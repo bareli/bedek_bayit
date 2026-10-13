@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 import pytest
 from homeassistant.core import HomeAssistant
+from homeassistant.setup import async_setup_component
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.bedek_bayit.config_flow import OPTION_DEFAULTS
@@ -46,3 +47,9 @@ async def setup_entry(hass: HomeAssistant, entry: MockConfigEntry):
     assert await hass.config_entries.async_setup(entry.entry_id)
     await hass.async_block_till_done()
     return entry.runtime_data
+
+
+async def setup_deps(hass: HomeAssistant) -> None:
+    """Load manifest dependencies before the WS client starts http (router freezes then)."""
+    for domain in ("frontend", "lovelace", "panel_custom"):
+        assert await async_setup_component(hass, domain, {})
